@@ -90,9 +90,6 @@ type FacebookOptions struct {
 //         s.Set("userID", user.ID)
 //         http.Redirect(w, req, "/", http.StatusFound)
 //     })
-//
-//
-//
 // }
 //
 func AuthFacebook(opts *FacebookOptions) martini.Handler {
