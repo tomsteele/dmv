@@ -10,6 +10,7 @@ Authentication is handled on a per route basis, allowing applications to easily 
 
 ## Supported Mediums
 - Local (Form)
+- Local (Basic)
 - Github OAuth 2.0
 - Facebook OAuth 2.0
 
