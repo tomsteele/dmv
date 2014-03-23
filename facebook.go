@@ -44,44 +44,42 @@ type FacebookProfile struct {
 // This function should be called twice in each application, once
 // on the login handler, and once on the callback handler.
 //
-// Example usage:
 //
-// package main
+//     package main
 //
-// import (
-//     "github.com/codegangsta/martini"
-//     "github.com/martini-contrib/sessions"
-//     "net/http"
-// )
+//     import (
+//         "github.com/codegangsta/martini"
+//         "github.com/martini-contrib/sessions"
+//         "net/http"
+//     )
 //
-// func main() {
-//     fbOpts := &dmv.OAuth2.0Options{
-//         ClientID: "oauth_id",
-//         ClientSecret: "oauth_secret",
-//         RedirectURL: "http://host:port/auth/facebook/callback",
-//     }
-//
-//     m := martini.Classic()
-//     store := sessions.NewCookieStore([]byte("secret123"))
-//     m.Use(sessions.Sessions("my_session", store))
-//
-//     m.Get("/", func(s sessions.Session) string {
-//         return "hi" + s.ID
-//     })
-//     m.Get("/auth/facebook", dmv.AuthFacebook(fbOpts))
-//     m.Get("/auth/callback/facebook", dmv.AuthFacebook(fbOpts), func(fb *dmv.Facebook, req *http.Request, w http.ResponseWriter) {
-//         // Handle any errors.
-//         if len(fb.Errors) > 0 {
-//             http.Error(w, "Oauth failure", http.StatusInternalServerError)
-//             return
+//     func main() {
+//         fbOpts := &dmv.OAuth2.0Options{
+//             ClientID: "oauth_id",
+//             ClientSecret: "oauth_secret",
+//             RedirectURL: "http://host:port/auth/facebook/callback",
 //         }
-//         // Do something in a database to create or find the user by the facebook profile id.
-//         user := findOrCreateByFacebookID(fb.Profile.ID)
-//         s.Set("userID", user.ID)
-//         http.Redirect(w, req, "/", http.StatusFound)
-//     })
-// }
 //
+//         m := martini.Classic()
+//         store := sessions.NewCookieStore([]byte("secret123"))
+//         m.Use(sessions.Sessions("my_session", store))
+//
+//         m.Get("/", func(s sessions.Session) string {
+//             return "hi" + s.ID
+//         })
+//         m.Get("/auth/facebook", dmv.AuthFacebook(fbOpts))
+//         m.Get("/auth/callback/facebook", dmv.AuthFacebook(fbOpts), func(fb *dmv.Facebook, req *http.Request, w http.ResponseWriter) {
+//             // Handle any errors.
+//             if len(fb.Errors) > 0 {
+//                 http.Error(w, "Oauth failure", http.StatusInternalServerError)
+//                 return
+//             }
+//             // Do something in a database to create or find the user by the facebook profile id.
+//             user := findOrCreateByFacebookID(fb.Profile.ID)
+//             s.Set("userID", user.ID)
+//             http.Redirect(w, req, "/", http.StatusFound)
+//         })
+//     }
 func AuthFacebook(opts *OAuth2Options) martini.Handler {
 	opts.AuthURL = "https://www.facebook.com/dialog/oauth"
 	opts.TokenURL = "https://graph.facebook.com/oauth/access_token"
