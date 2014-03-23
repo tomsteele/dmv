@@ -37,6 +37,43 @@ type GithubProfile struct {
 //
 // This function should be called twice in each application, once on the login
 // handler and once on the callback handler.
+//
+//
+//     package main
+//
+//     import (
+//         "github.com/codegangsta/martini"
+//         "github.com/martini-contrib/sessions"
+//         "net/http"
+//     )
+//
+//     func main() {
+//         ghOpts := &dmv.OAuth2.0Options{
+//             ClientID: "oauth_id",
+//             ClientSecret: "oauth_secret",
+//             RedirectURL: "http://host:port/auth/github/callback",
+//         }
+//
+//         m := martini.Classic()
+//         store := sessions.NewCookieStore([]byte("secret123"))
+//         m.Use(sessions.Sessions("my_session", store))
+//
+//         m.Get("/", func(s sessions.Session) string {
+//             return "hi" + s.ID
+//         })
+//         m.Get("/auth/github", dmv.AuthGithub(ghOpts))
+//         m.Get("/auth/callback/github", dmv.AuthGithub(ghOpts), func(gh *dmv.Github, req *http.Request, w http.ResponseWriter) {
+//             // Handle any errors.
+//             if len(gh.Errors) > 0 {
+//                 http.Error(w, "Oauth failure", http.StatusInternalServerError)
+//                 return
+//             }
+//             // Do something in a database to create or find the user by the Github profile id.
+//             user := findOrCreateByGithubID(gh.Profile.ID)
+//             s.Set("userID", user.ID)
+//             http.Redirect(w, req, "/", http.StatusFound)
+//         })
+//     }
 func AuthGithub(opts *OAuth2Options) martini.Handler {
 	opts.AuthURL = "https://github.com/login/oauth/authorize"
 	opts.TokenURL = "https://github.com/login/oauth/access_token"
