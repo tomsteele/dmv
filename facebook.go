@@ -57,7 +57,7 @@ type FacebookProfile struct {
 //         fbOpts := &dmv.OAuth2.0Options{
 //             ClientID: "oauth_id",
 //             ClientSecret: "oauth_secret",
-//             RedirectURL: "http://host:port/auth/facebook/callback",
+//             RedirectURL: "http://host:port/auth/callback/facebook",
 //         }
 //
 //         m := martini.Classic()

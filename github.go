@@ -51,7 +51,7 @@ type GithubProfile struct {
 //         ghOpts := &dmv.OAuth2.0Options{
 //             ClientID: "oauth_id",
 //             ClientSecret: "oauth_secret",
-//             RedirectURL: "http://host:port/auth/github/callback",
+//             RedirectURL: "http://host:port/auth/callback/github",
 //         }
 //
 //         m := martini.Classic()
