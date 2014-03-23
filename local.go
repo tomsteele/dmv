@@ -24,6 +24,14 @@ type LocalOptions struct {
 }
 
 // AuthLocal attempts to get a username and password from a request.
+//
+//     m.Post("/login", dmv.AuthLocal(), func(l *dmv.Local) {
+//         if len(l.Errors) > 0 {
+//             // Return invalid username or password or perhaps 401.
+//         }
+//         // Lookup the user by l.Username
+//         // Compare password of found user to l.Password
+//     })
 func AuthLocal(opts *LocalOptions) martini.Handler {
 	if opts.UsernameField == "" {
 		opts.UsernameField = "username"
