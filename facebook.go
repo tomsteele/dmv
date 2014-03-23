@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	profileURL = "https://graph.facebook.com/me"
+	fbProfileURL = "https://graph.facebook.com/me"
 )
 
 // Facebook holds the access and refresh tokens along with the users
@@ -119,7 +119,7 @@ func AuthFacebook(opts *OAuth2Options) martini.Handler {
 		}
 		fb.AccessToken = tk.AccessToken
 		fb.RefreshToken = tk.RefreshToken
-		resp, err := transport.Client().Get(profileURL)
+		resp, err := transport.Client().Get(fbProfileURL)
 		if err != nil {
 			fb.Errors = append(fb.Errors, err)
 			return
