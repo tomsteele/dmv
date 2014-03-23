@@ -25,25 +25,15 @@ type Facebook struct {
 
 // FacebookProfile contains information about the user from facebook.
 type FacebookProfile struct {
-	ID          string `json:"id"`
-	Username    string `json:"username"`
-	DisplayName string `json:"name"`
-	LastName    string `json:"last_name"`
-	FirstName   string `json:"first_name"`
-	MiddleName  string `json:"middle_name"`
-	Gender      string `json:"gender"`
-	Link        string `json:"link"`
-	Email       string `json:"email"`
-}
-
-// FacebookOptions are standard oauth options.
-type FacebookOptions struct {
-	ClientID     string
-	ClientSecret string
-	CallbackURL  string
-	Scopes       []string
-	AuthURL      string
-	TokenURL     string
+	ID         string `json:"id"`
+	Username   string `json:"username"`
+	Name       string `json:"name"`
+	LastName   string `json:"last_name"`
+	FirstName  string `json:"first_name"`
+	MiddleName string `json:"middle_name"`
+	Gender     string `json:"gender"`
+	Link       string `json:"link"`
+	Email      string `json:"email"`
 }
 
 // AuthFacebook authenticates users using Facebook and OAuth2.0. After
@@ -65,10 +55,10 @@ type FacebookOptions struct {
 // )
 //
 // func main() {
-//     fbOpts := &dmv.FacebookOptions{
+//     fbOpts := &dmv.OAuth2.0Options{
 //         ClientID: "oauth_id",
 //         ClientSecret: "oauth_secret",
-//         CallbackURL: "http://host:port/auth/facebook/callback",
+//         RedirectURL: "http://host:port/auth/facebook/callback",
 //     }
 //
 //     m := martini.Classic()
@@ -92,13 +82,13 @@ type FacebookOptions struct {
 //     })
 // }
 //
-func AuthFacebook(opts *FacebookOptions) martini.Handler {
+func AuthFacebook(opts *OAuth2Options) martini.Handler {
 	opts.AuthURL = "https://www.facebook.com/dialog/oauth"
 	opts.TokenURL = "https://graph.facebook.com/oauth/access_token"
 	config := &oauth.Config{
 		ClientId:     opts.ClientID,
 		ClientSecret: opts.ClientSecret,
-		RedirectURL:  opts.CallbackURL,
+		RedirectURL:  opts.RedirectURL,
 		Scope:        strings.Join(opts.Scopes, " "),
 		AuthURL:      opts.AuthURL,
 		TokenURL:     opts.TokenURL,
@@ -110,7 +100,7 @@ func AuthFacebook(opts *FacebookOptions) martini.Handler {
 	}
 
 	cbPath := ""
-	if u, err := url.Parse(opts.CallbackURL); err == nil {
+	if u, err := url.Parse(opts.RedirectURL); err == nil {
 		cbPath = u.Path
 	}
 
