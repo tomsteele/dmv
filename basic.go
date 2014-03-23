@@ -20,10 +20,10 @@ type Basic struct {
 // a username or password is empty.
 //
 //
-//    m.Get("/protected", AuthBasic(), func(b *dmv.Basic) {
+//    m.Get("/protected", AuthBasic(), func(b *dmv.Basic, w http.ResponseWriter) {
 //        // Lookup user by b.Username
 //        // Compare password to b.Password
-//        // If not valid call dmv.FailBasic()
+//        // If not valid call dmv.FailBasic(w)
 //    })
 func AuthBasic() martini.Handler {
 	return func(req *http.Request, w http.ResponseWriter, c martini.Context) {
