@@ -111,7 +111,7 @@ func AuthGoogle(opts *OAuth2Options) martini.Handler {
     }
     goog.AccessToken = tk.AccessToken
     goog.RefreshToken = tk.RefreshToken
-    resp, err := transport.Client().Get(googleProfileURL, goog.AccessToken)
+    resp, err := transport.Client().Get(googleProfileURL)
     if err != nil {
       goog.Errors = append(goog.Errors, err)
       return
