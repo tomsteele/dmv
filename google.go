@@ -38,6 +38,10 @@ type GoogleProfile struct {
 // This function should be called twice in each application, once on the login
 // handler and once on the callback handler.
 //
+// Options:
+//  - ClientID        your Google application's client id
+//  - ClientSecret    your Google application's client secret
+//  - RedirectURL     URL to which Google will redirect the user after granting authorization
 //
 //     package main
 //
