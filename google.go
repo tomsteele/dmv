@@ -42,20 +42,23 @@ type GoogleProfile struct {
 //  - ClientID        your Google application's client id
 //  - ClientSecret    your Google application's client secret
 //  - RedirectURL     URL to which Google will redirect the user after granting authorization
+//  - Scopes          typical scopes will be: userinfo.email and userinfo.profile
 //
 //     package main
 //
 //     import (
 //         "github.com/codegangsta/martini"
 //         "github.com/martini-contrib/sessions"
+//         "github.com/thomasjsteele/dmv"
 //         "net/http"
 //     )
 //
 //     func main() {
-//         ghOpts := &dmv.OAuth2.0Options{
-//             ClientID: "oauth_id",
-//             ClientSecret: "oauth_secret",
+//         googleOpts := &dmv.OAuth2Options{
+//             ClientID: "<CLIENT_ID_HERE",
+//             ClientSecret: "<CLIENT_SECRET_HERE",
 //             RedirectURL: "http://host:port/auth/callback/google",
+//             Scopes:      []string{"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
 //         }
 //
 //         m := martini.Classic()
@@ -63,18 +66,18 @@ type GoogleProfile struct {
 //         m.Use(sessions.Sessions("my_session", store))
 //
 //         m.Get("/", func(s sessions.Session) string {
-//             return "hi" + s.ID
+//             return "hello visitor"
 //         })
 //         m.Get("/auth/google", dmv.AuthGoogle(googleOpts))
-//         m.Get("/auth/callback/google", dmv.AuthGoogle(googleOpts), func(gh *dmv.Google, req *http.Request, w http.ResponseWriter) {
+//         m.Get("/auth/callback/google", dmv.AuthGoogle(googleOpts), func(goog *dmv.Google, req *http.Request, w http.ResponseWriter) {
 //             // Handle any errors.
-//             if len(gh.Errors) > 0 {
+//             if len(goog.Errors) > 0 {
 //                 http.Error(w, "Oauth failure", http.StatusInternalServerError)
 //                 return
 //             }
 //             // Do something in a database to create or find the user by the Google profile id.
-//             user := findOrCreateByGoogleID(google.Profile.ID)
-//             s.Set("userID", user.ID)
+//             //user := findOrCreateByGoogleID(google.Profile.ID)
+//             fmt.Printf("Found Google Profile: %s\n", goog.Profile.ID)
 //             http.Redirect(w, req, "/", http.StatusFound)
 //         })
 //     }
@@ -86,7 +89,7 @@ func AuthGoogle(opts *OAuth2Options) martini.Handler {
     ClientId:     opts.ClientID,
     ClientSecret: opts.ClientSecret,
     RedirectURL:  opts.RedirectURL,
-    Scope:        strings.Join(opts.Scopes, ","),
+    Scope:        strings.Join(opts.Scopes, " "),
     AuthURL:      opts.AuthURL,
     TokenURL:     opts.TokenURL,
   }
