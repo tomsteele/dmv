@@ -11,11 +11,10 @@ import (
 )
 
 var (
-	// google oauth2 endpoints
 	googleProfileURL = "https://www.googleapis.com/oauth2/v1/userinfo"
 )
 
-// Google holds the access and refresh tokens along with the user profile
+// Google stores the access and refresh tokens along with the user profile.
 type Google struct {
 	Errors       []error
 	AccessToken  string
@@ -23,6 +22,7 @@ type Google struct {
 	Profile      GoogleProfile
 }
 
+// GoogleProfile stores information from the users google+ profile.
 type GoogleProfile struct {
 	ID          string `json:"id"`
 	DisplayName string `json:"name"`
@@ -38,12 +38,6 @@ type GoogleProfile struct {
 // This function should be called twice in each application, once on the login
 // handler and once on the callback handler.
 //
-// Options:
-//  - ClientID        your Google application's client id
-//  - ClientSecret    your Google application's client secret
-//  - RedirectURL     URL to which Google will redirect the user after granting authorization
-//  - Scopes          typical scopes will be: userinfo.email and userinfo.profile
-//
 //     package main
 //
 //     import (
@@ -55,10 +49,11 @@ type GoogleProfile struct {
 //
 //     func main() {
 //         googleOpts := &dmv.OAuth2Options{
-//             ClientID: "<CLIENT_ID_HERE",
-//             ClientSecret: "<CLIENT_SECRET_HERE",
+//             ClientID: "oauth_id",
+//             ClientSecret: "oauth_secret",
 //             RedirectURL: "http://host:port/auth/callback/google",
-//             Scopes:      []string{"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
+//             Scopes:      []string{"https://www.googleapis.com/auth/userinfo.email",
+//                                   "https://www.googleapis.com/auth/userinfo.profile"},
 //         }
 //
 //         m := martini.Classic()
@@ -66,22 +61,20 @@ type GoogleProfile struct {
 //         m.Use(sessions.Sessions("my_session", store))
 //
 //         m.Get("/", func(s sessions.Session) string {
-//             return "hello visitor"
+//             return "hello" + s.Get("userID")
 //         })
 //         m.Get("/auth/google", dmv.AuthGoogle(googleOpts))
 //         m.Get("/auth/callback/google", dmv.AuthGoogle(googleOpts), func(goog *dmv.Google, req *http.Request, w http.ResponseWriter) {
 //             // Handle any errors.
 //             if len(goog.Errors) > 0 {
-//                 http.Error(w, "Oauth failure", http.StatusInternalServerError)
+//                 http.Error(w, "OAuth failure", http.StatusInternalServerError)
 //                 return
 //             }
 //             // Do something in a database to create or find the user by the Google profile id.
-//             //user := findOrCreateByGoogleID(google.Profile.ID)
-//             fmt.Printf("Found Google Profile: %s\n", goog.Profile.ID)
+//             s.Set("userID", goog.Profile.ID)
 //             http.Redirect(w, req, "/", http.StatusFound)
 //         })
 //     }
-
 func AuthGoogle(opts *OAuth2Options) martini.Handler {
 	opts.AuthURL = "https://accounts.google.com/o/oauth2/auth"
 	opts.TokenURL = "https://accounts.google.com/o/oauth2/token"

@@ -14,7 +14,7 @@ var (
 	ghProfileURL = "https://api.github.com/user"
 )
 
-// Github holds the access and refresh tokens along with the users profile.
+// Github stores the access and refresh tokens along with the users profile.
 type Github struct {
 	Errors       []error
 	AccessToken  string
@@ -22,7 +22,7 @@ type Github struct {
 	Profile      GithubProfile
 }
 
-// GithubProfile contains information about the user from Github.
+// GithubProfile stores information about the user from Github.
 type GithubProfile struct {
 	ID      int    `json:"id"`
 	Name    string `json:"name"`
@@ -59,7 +59,7 @@ type GithubProfile struct {
 //         m.Use(sessions.Sessions("my_session", store))
 //
 //         m.Get("/", func(s sessions.Session) string {
-//             return "hi" + s.ID
+//             return "hi" + s.Get("userID")
 //         })
 //         m.Get("/auth/github", dmv.AuthGithub(ghOpts))
 //         m.Get("/auth/callback/github", dmv.AuthGithub(ghOpts), func(gh *dmv.Github, req *http.Request, w http.ResponseWriter) {

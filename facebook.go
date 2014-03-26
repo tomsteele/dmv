@@ -14,7 +14,7 @@ var (
 	fbProfileURL = "https://graph.facebook.com/me"
 )
 
-// Facebook holds the access and refresh tokens along with the users
+// Facebook stores the access and refresh tokens along with the users
 // profile.
 type Facebook struct {
 	Errors       []error
@@ -23,7 +23,7 @@ type Facebook struct {
 	Profile      FacebookProfile
 }
 
-// FacebookProfile contains information about the user from facebook.
+// FacebookProfile stores information about the user from facebook.
 type FacebookProfile struct {
 	ID         string `json:"id"`
 	Username   string `json:"username"`
@@ -65,7 +65,7 @@ type FacebookProfile struct {
 //         m.Use(sessions.Sessions("my_session", store))
 //
 //         m.Get("/", func(s sessions.Session) string {
-//             return "hi" + s.ID
+//             return "hi" + s.Get("userID")
 //         })
 //         m.Get("/auth/facebook", dmv.AuthFacebook(fbOpts))
 //         m.Get("/auth/callback/facebook", dmv.AuthFacebook(fbOpts), func(fb *dmv.Facebook, req *http.Request, w http.ResponseWriter) {

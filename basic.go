@@ -7,18 +7,15 @@ import (
 	"strings"
 )
 
-// Basic holds a username and password
-// from the Authorization header.
+// Basic stores a username and password from the Authorization header.
 type Basic struct {
 	Username string
 	Password string
 }
 
-// AuthBasic attempts to get a username and password
-// from an Authorization header. Basic is mapped to the current
-// request context. BasicFail will be called if there are errors, the header is empty, or
-// a username or password is empty.
-//
+// AuthBasic attempts to get a username and password from an Authorization header.
+// Basic is mapped to the current request context. BasicFail will be called if
+// there are errors, the header is empty, or a username or password is empty.
 //
 //    m.Get("/protected", AuthBasic(), func(b *dmv.Basic, w http.ResponseWriter) {
 //        // Lookup user by b.Username
