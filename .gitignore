@@ -6,6 +6,7 @@
 # Folders
 _obj
 _test
+tags
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -20,3 +21,6 @@ _cgo_export.*
 _testmain.go
 
 *.exe
+
+# local test drivers
+*_local_test.go
