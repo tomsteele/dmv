@@ -13,6 +13,7 @@ Authentication is handled on a per route basis, allowing applications to easily 
 - Local (Basic)
 - Github OAuth 2.0
 - Facebook OAuth 2.0
+- Google OAuth 2.0
 
 ## Usage
 There is sample usage for each Auth* function in the docs. Also see [examples](https://github.com/tomsteele/dmv/tree/master/examples).
