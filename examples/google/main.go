@@ -10,9 +10,9 @@ import (
 
 func main() {
 	googleOpts := &dmv.OAuth2Options{
-		ClientID:     "480327743566-1tqajqn4m1lc0l15t38g1pa17nhck0eb.apps.googleusercontent.com",
-		ClientSecret: "uUA8w0PvqHq1OEdIgvisTeTC",
-		RedirectURL:  "http://jwv.mine.nu:3000/auth/callback/google",
+		ClientID:     "CLIENTID",
+		ClientSecret: "CLIENTSECRET",
+		RedirectURL:  "http://localhost:3000/auth/callback/google",
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
 	}
 
