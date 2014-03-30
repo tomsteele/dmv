@@ -22,11 +22,11 @@ func main() {
 	m.Use(render.Renderer())
 
 	m.Get("/", func(s sessions.Session, r render.Render) {
-		if s.Get("userID") == nil {
+		if uid := s.Get("userID"); uid == nil {
 			r.Redirect("/login", 302)
-			return
+		} else {
+			r.HTML(200, "home", uid.(string))
 		}
-		r.HTML(200, "home", nil)
 	})
 
 	m.Get("/login", func(r render.Render) {
@@ -44,7 +44,6 @@ func main() {
 		// for now just pass the google display name
 		s.Set("userID", goog.Profile.ID)
 		r.HTML(200, "home", goog.Profile.DisplayName)
-
 	})
 
 	m.Run()
