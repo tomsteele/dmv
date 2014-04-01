@@ -3,7 +3,7 @@ package dmv
 import (
 	"bytes"
 	"fmt"
-	"github.com/codegangsta/martini"
+	"github.com/go-martini/martini"
 	"net/http"
 	"net/http/httptest"
 	"net/url"

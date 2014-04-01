@@ -7,7 +7,7 @@ package main
 
 import (
 	"code.google.com/p/go.crypto/bcrypt"
-	"github.com/codegangsta/martini"
+	"github.com/go-martini/martini"
 	"github.com/martini-contrib/render"
 	"github.com/martini-contrib/sessions"
 	"github.com/tomsteele/dmv"
