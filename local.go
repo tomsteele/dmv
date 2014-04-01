@@ -3,7 +3,7 @@ package dmv
 
 import (
 	"errors"
-	"github.com/codegangsta/martini"
+	"github.com/go-martini/martini"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package dmv
 import (
 	"code.google.com/p/goauth2/oauth"
 	"encoding/json"
-	"github.com/codegangsta/martini"
+	"github.com/go-martini/martini"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -42,7 +42,7 @@ type GithubProfile struct {
 //     package main
 //
 //     import (
-//         "github.com/codegangsta/martini"
+//         "github.com/go-martini/martini"
 //         "github.com/martini-contrib/sessions"
 //         "net/http"
 //     )
