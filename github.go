@@ -1,13 +1,12 @@
 package dmv
 
 import (
-	"code.google.com/p/goauth2/oauth"
 	"encoding/json"
-	"github.com/go-martini/martini"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
+
+	"github.com/go-martini/martini"
 )
 
 var (
@@ -77,25 +76,13 @@ type GithubProfile struct {
 func AuthGithub(opts *OAuth2Options) martini.Handler {
 	opts.AuthURL = "https://github.com/login/oauth/authorize"
 	opts.TokenURL = "https://github.com/login/oauth/access_token"
-	config := &oauth.Config{
-		ClientId:     opts.ClientID,
-		ClientSecret: opts.ClientSecret,
-		RedirectURL:  opts.RedirectURL,
-		Scope:        strings.Join(opts.Scopes, ","),
-		AuthURL:      opts.AuthURL,
-		TokenURL:     opts.TokenURL,
-	}
 
-	transport := &oauth.Transport{
-		Config:    config,
-		Transport: http.DefaultTransport,
-	}
-
-	cbPath := ""
-	if u, err := url.Parse(opts.RedirectURL); err == nil {
-		cbPath = u.Path
-	}
 	return func(r *http.Request, w http.ResponseWriter, c martini.Context) {
+		transport := makeTransport(opts, r)
+		cbPath := ""
+		if u, err := url.Parse(transport.Config.RedirectURL); err == nil {
+			cbPath = u.Path
+		}
 		if r.URL.Path != cbPath {
 			http.Redirect(w, r, transport.Config.AuthCodeURL(""), http.StatusFound)
 			return
