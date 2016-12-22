@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"code.google.com/p/goauth2/oauth"
+	"github.com/tomsteele/dmv/oauth"
 )
 
 // OAuth2Options contains options for complete OAuth2.0.
